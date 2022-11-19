@@ -14,7 +14,7 @@ class Node(object):
     is nice though.
     """
     def __init__(self, elem):
-        assert type(elem) is int or elem in (INF, -INF)
+        assert type(elem) is tuple or elem in (INF, -INF)
         self.elem = elem
         self.level = None
         self.right = None
@@ -28,21 +28,21 @@ class Node(object):
         return self.elem == other.elem
 
     def __lt__(self, other):
-        return self.elem < other.elem
+        return self.elem[1] < other.elem[1]
 
     def __gt__(self, other):
-        return self.elem > other.elem
+        return self.elem[1] > other.elem[1]
 
     def __le__(self, other):
-        return self.elem <= other.elem
+        return self.elem[1] <= other.elem[1]
 
     def __ge__(self, other):
-        return self.elem >= other.elem
+        return self.elem[1] >= other.elem[1]
 
     def _debug(self, label_func=None):
         if label_func:
-            return "Node{level: %s, elem:%s, label:%s}" % (self.level, self.elem, label_func(self))
-        return "Node{level: %s, elem:%s}" % (self.level, self.elem)
+            return "Node{level: %s, elem:%s, label:%s}" % (self.level, self.elem[1], label_func(self))
+        return "Node{level: %s, elem:%s}" % (self.level, self.elem[1])
 
     @property
     def is_plateau(self):
@@ -67,14 +67,14 @@ class NegInf(Node):
     """Node with element value -Infinity.
     """
     def __init__(self):
-        super(NegInf, self).__init__(-INF)
+        super(NegInf, self).__init__((-INF, -INF))
 
 
 class Inf(Node):
     """Node with element value Infinity.
     """
     def __init__(self):
-        super(Inf, self).__init__(INF)
+        super(Inf, self).__init__((INF, INF))
 
 
 class SkipList(object):
@@ -102,7 +102,7 @@ class SkipList(object):
                 last_node = node
                 nodes[(level, elem)] = node
         # set the starting node as the top-left-most node
-        self.start = nodes[(self.max_level, -INF)]
+        self.start = nodes[(self.max_level, (-INF, -INF))]
 
     def _debug(self, label_func=None):
         s = "SkipList{\n"
