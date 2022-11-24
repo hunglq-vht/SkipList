@@ -15,8 +15,6 @@ skip_list = SkipList([
 assert skip_list.height == 6
 assert skip_list.get((2, 12)).elem == (2, 12)
 print(skip_list.get((2, 12)))
-# assert skip_list.get(12).level == 0
-# assert skip_list.get(77) is None
 
 
 assert chash(1, 2) == chash(2, 1)
@@ -32,8 +30,8 @@ print(skip_list.start)
 # # f should be deterministic for a given start node in a list.
 assert f(skip_list.start) == f(skip_list.start)
 
-# # Some examples of `f` that are simples enough to expand in my head.
-# assert f(skip_list.get(38)) == chash(38, chash(39, 44))
+# Some examples of `f` that are simples enough to expand in my head.
+assert f(skip_list.get((8, 38))) == chash(chash(8, 38), chash(chash(10, 39), chash(3, 44)))
 # assert f(skip_list.get(38).up) == chash(chash(38, chash(39, 44)), chash(44, chash(50, 55)))
 
 # # From Figure 7 description, the authentication information should be the same

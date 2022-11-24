@@ -128,17 +128,6 @@ class SkipList(object):
         return nodes
 
     def search(self, elem):
-        """Searchs for a node in the skip list with element `elem`.
-
-        Returns the stack of nodes that were traversed during the search as
-        a list.
-
-        The Goodrich paper suggests that the last item on the stack
-        is "either [elem]... or the largest element less than [elem]"
-        and it is expected the last item on the search stack is on the
-        base level (See e.g. Figure 4) so this isn't the most intuitive
-        search.
-        """
         curr = self.start
         search_stack = []
         node = Node(elem)
